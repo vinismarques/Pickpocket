@@ -154,9 +154,8 @@ function handleArchiveCommand(info, tab) {
 }
 function handleCommand(command) {
 	if (command == 'add-current-page') {
-		chrome.tabs.query({active:true}, function (tabs) {
-			var activeTab = tabs[0];
-			addOrArchivePage(activeTab);
+		chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+			addOrArchivePage(tabs[0]);
 		});
 	}
 }
