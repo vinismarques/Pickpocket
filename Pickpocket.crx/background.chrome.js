@@ -455,7 +455,7 @@ function toggleContextMenuItems() {
 		chrome.contextMenus.create({
 			id       : 'page-cmi-0',
 			title    : 'Add Page to ' + services[localStorage.defaultService].name,
-			contexts : ['page'],
+			contexts : ['page','selection'],
 			onclick  : handleAddCommand
 		});
 		chrome.contextMenus.create({
@@ -486,7 +486,7 @@ function updateContextMenu() {
 			chrome.contextMenus.create({
 				id       : 'page-cmi-1',
 				title    : 'Remove Page from ' + svcName,
-				contexts : ['page'],
+				contexts : ['page','selection'],
 				onclick  : handleRemoveCommand
 			});
 		break;
@@ -498,7 +498,7 @@ function updateContextMenu() {
 			chrome.contextMenus.create({
 				id       : 'page-cmi-1',
 				title    : 'Remove Page from ' + svcName,
-				contexts : ['page'],
+				contexts : ['page','selection'],
 				onclick  : handleRemoveCommand
 			});
 		break;
