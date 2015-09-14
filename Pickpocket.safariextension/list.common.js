@@ -92,6 +92,13 @@ var itemList = {
 		}
 		// if (this.scrollTop) this.el.scrollTop = this.scrollTop;
 	},
+	updateScrollTop: function () {
+		// Only update the scroll top for the default view.
+		if (localStorage.lastScrollTop && this.listType === 'new or pinned') {
+			this.lastScrollTop = localStorage.lastScrollTop;
+			this.el.scrollTop = this.lastScrollTop;
+		}
+	},
 	updateList: function (items, listType, isInitial, selectedIndex) {
 		this.listType = listType = (listType || this.listType);
 		this.clear();
@@ -158,10 +165,12 @@ var itemList = {
 			setTimeout(function () {
 				itemList.itemHeight = itemList.el.firstElementChild.offsetHeight;
 				itemList.updateHeight(items.length);
+				itemList.updateScrollTop();
 				itemList.showFavicons();
 			}, 1);
 		} else {
 			this.updateHeight(items.length);
+			this.updateScrollTop();
 			this.showFavicons();
 		}
 	},
@@ -249,11 +258,17 @@ function initialize() {
 		}
 	};
 	
-	window.setInterval(function () {
+	document.addEventListener('scroll', function() {
 		if (itemList.el.scrollTop != itemList.lastScrollTop)
 			itemList.showFavicons();
 		itemList.lastScrollTop = itemList.el.scrollTop;
-	}, 250);
+
+		// A local variable won't survive after the popup closes, so save in
+		// localStorage as well, but only when in the default view.
+		if (itemList.listType === 'new or pinned') {
+			localStorage.lastScrollTop = itemList.lastScrollTop;
+		}
+	}, /* useCapture */ true);
 	
 	initMainBox();
 	updateItems(JSON.parse(localStorage.cacheTime));
