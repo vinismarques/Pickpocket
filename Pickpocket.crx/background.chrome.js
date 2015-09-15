@@ -89,7 +89,6 @@ function getDefaultIconForActiveTab() {
 	}
 }
 function handleAddCommand(info, tab) {
-	// console.log('info:', info);
 	if (localStorage.showAddDialog == 'yes') {
 		var url = info.linkUrl || tab.url;
 		var oldItem = getItemByUrl(url);
@@ -454,27 +453,25 @@ function toggleContextMenuItems() {
 	if (localStorage.addContextMenuItem == 'yes') {
 		chrome.contextMenus.create({
 			id       : 'page-cmi-0',
-			title    : 'Add Page to ' + services[localStorage.defaultService].name,
-			contexts : ['page','selection'],
+			title    : 'Add to ' + services[localStorage.defaultService].name,
+			contexts : ['page','selection','link'],
 			onclick  : handleAddCommand
 		});
-		chrome.contextMenus.create({
-			id       : 'link-cmi',
-			title    : 'Add Link to ' + services[localStorage.defaultService].name,
-			contexts : ['link'],
-			onclick  : handleAddCommand
-		});
+		cmItems['page-cmi-0'] = true;
 	}
 }
 function updateContextMenu() {
 	if (localStorage.addContextMenuItem != 'yes')
 		return;
 	var svcName = services[localStorage.defaultService].name;
-	chrome.contextMenus.remove('page-cmi-1');
+	if (cmItems['page-cmi-1']) {
+		chrome.contextMenus.remove('page-cmi-1');
+		cmItems['page-cmi-1'] = false;
+	}
 	switch (activeTabInfo.ps) {
 		case 'absent':
 			chrome.contextMenus.update('page-cmi-0', {
-				title   : 'Add Page to ' + svcName + ' Queue',
+				title   : 'Add to ' + svcName,
 				onclick : handleAddCommand
 			});
 		break;
@@ -486,9 +483,10 @@ function updateContextMenu() {
 			chrome.contextMenus.create({
 				id       : 'page-cmi-1',
 				title    : 'Remove Page from ' + svcName,
-				contexts : ['page','selection'],
+				contexts : ['page'],
 				onclick  : handleRemoveCommand
 			});
+			cmItems['page-cmi-1'] = true;
 		break;
 		case 'read':
 			chrome.contextMenus.update('page-cmi-0', {
@@ -498,9 +496,10 @@ function updateContextMenu() {
 			chrome.contextMenus.create({
 				id       : 'page-cmi-1',
 				title    : 'Remove Page from ' + svcName,
-				contexts : ['page','selection'],
+				contexts : ['page'],
 				onclick  : handleRemoveCommand
 			});
+			cmItems['page-cmi-1'] = true;
 		break;
 	}
 }
@@ -531,6 +530,9 @@ var tabsWatchedForFocus = {};
 var tabsWatchedForChange = {};
 var tabsWatchedForClose = {};
 var reportObject = {};
+var cmItems = {};
+
+toggleContextMenuItems();
 
 defaults.colorizeButton = 'no';
 
@@ -544,7 +546,6 @@ chrome.commands.onCommand.addListener(handleCommand);
 
 setButtonIcon(defaultIcon);
 cb.setBadgeBackgroundColor({color:'#ff4c62'});
-toggleContextMenuItems();
 
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-17748243-3']);
