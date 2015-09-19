@@ -20,8 +20,8 @@ function populatePrefs() {
 	document.getElementById('unw').checked = (localStorage.useNewWindow == 'yes');
 	document.getElementById('sof').checked = (localStorage.sortOldestFirst == 'yes');
 	document.getElementById('clb').checked = (localStorage.colorizeButton == 'yes');
+	document.getElementById('dbi').checked = (localStorage.defaultBlueIcon == 'yes');
 	document.getElementById('net').checked = (localStorage.newExcludesTagged == 'yes');
-	document.getElementById('uai').checked = (localStorage.useAlternateIcon == 'yes');
 	document.getElementById('acm').checked = (localStorage.addContextMenuItem == 'yes');
 	document.getElementById('rou').checked = (localStorage.reloadOnUpdate == 'yes');
 	document.getElementById('urb').checked = (localStorage.unreadBadge == 'yes');
@@ -40,8 +40,9 @@ function populatePrefs() {
 	
 	var inputs = document.querySelectorAll('input');
 	for (var i = 0; i < inputs.length; i++) {
-		if (inputs[i].type != 'range')
+		if (inputs[i].type != 'range') {
 			inputs[i].addEventListener('change', savePref, false);
+		}
 	}
 	
 	var setText = function (e) {
@@ -103,10 +104,30 @@ function savePref() {
 				hc.toggleContextMenuItems();
 			} else
 			if (control.name == 'colorizeButton') {
+				if (control.checked) {
+					document.getElementById('dbi').checked = false;
+					localStorage.defaultBlueIcon = 'no';
+					hc.defaultIcon = {
+						'19': 'icon-19.png',
+						'38': 'icon-19@2x.png'
+					};
+				}
 				hc.setButtonIcon(hc.defaultIcon);
 			} else
-			if (control.name == 'useAlternateIcon') {
-				hc.defaultIcon = (localStorage.useAlternateIcon == 'yes') ? 'icon-pocket-19.png' : 'icon-19.png';
+			if (control.name == 'defaultBlueIcon') {
+				if (control.checked) {
+					document.getElementById('clb').checked = false;
+					localStorage.colorizeButton = 'no';
+					hc.defaultIcon = {
+						'19': 'icon-19-cc.png',
+						'38': 'icon-19-cc@2x.png'
+					};
+				} else {
+					hc.defaultIcon = {
+						'19': 'icon-19.png',
+						'38': 'icon-19@2x.png'
+					};
+				}
 				hc.setButtonIcon(hc.defaultIcon);
 			}
 		break;

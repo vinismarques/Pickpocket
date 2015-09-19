@@ -332,7 +332,7 @@ function initializeSettings() {
 			localStorage.unreadBadge = 'no';
 		}
 	}
-	localStorage.lastVersion = 17;
+	localStorage.lastVersion = 18;
 }
 function markItemRead(item, onSuccess, onFailure) {
 	// console.log('Archiving:', item.url);
@@ -422,8 +422,8 @@ function setBadge(input) {
 		});
 	}
 }
-function setButtonIcon(filename) {
-	cb.setIcon({path:filename});
+function setButtonIcon(paths) {
+	cb.setIcon({ path: paths });
 }
 function setReportForXhrError(xhr) {
 	var message = 
@@ -522,8 +522,14 @@ function updateUIElements(tabId) {
 
 var safari = false;
 var cb = chrome.browserAction;
-var defaultIcon = { '19': 'icon-19.png', '38': 'icon-19@2x.png' };
-var waitingIcon = { '19': 'icon-19-w.png', '38': 'icon-19-w@2x.png' };
+var defaultIcon = {
+	'19': localStorage.defaultBlueIcon == 'yes' ? 'icon-19-cc.png'    : 'icon-19.png',
+	'38': localStorage.defaultBlueIcon == 'yes' ? 'icon-19-cc@2x.png' : 'icon-19@2x.png'
+};
+var waitingIcon = {
+	'19': 'icon-19-w.png',
+	'38': 'icon-19-w@2x.png'
+};
 var activeTabInfo = {};
 var myOpenedTabs = {};
 var tabsWatchedForFocus = {};
@@ -535,6 +541,7 @@ var cmItems = {};
 toggleContextMenuItems();
 
 defaults.colorizeButton = 'no';
+defaults.defaultBlueIcon = 'no';
 
 chrome.runtime.onMessage.addListener(handleMessage);
 
