@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>10600.1.25</string>
+	<string>11601.2.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>Pickpocket</string>
 	<key>CFBundleIdentifier</key>
@@ -13,13 +13,13 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.3.16</string>
+	<string>3.3.17</string>
 	<key>CFBundleVersion</key>
-	<string>100</string>
+	<string>101</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
-		<string>global.html</string>
+		<string>background.html</string>
 		<key>Menus</key>
 		<array>
 			<dict>

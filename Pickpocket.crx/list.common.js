@@ -1,7 +1,8 @@
 var itemList = {
 	selectedLi: null,
 	itemHeight: 0,
-	lastScrollTop: 0,
+	lastScrollPosition: 0,
+	lastSelectedItemId: null,
 	clear: function () {
 		this.el.innerHTML = '';
 		this.el.style.height = 'auto';
@@ -27,7 +28,7 @@ var itemList = {
 	getSelectedIndex: function () {
 		return [].slice.call(this.el.children).indexOf(this.selectedLi);
 	},
-	select: function (li, index) {
+	select: function (li, index, noSave) {
 		if (this.urlRevealTimer) {
 			clearTimeout(this.urlRevealTimer);
 			delete this.urlRevealTimer;
@@ -45,6 +46,9 @@ var itemList = {
 				// itemList.selectedLi.querySelector('.blurb').innerHTML = getItemFromId(itemList.selectedLi.id).url;
 				delete itemList.urlRevealTimer;
 			}, 1000);
+			if (this.listType === 'new or pinned' && !noSave) {
+				localStorage.lastSelectedItemId = this.selectedLi.id;
+			}
 		}
 	},
 	showFavicon: function (li) {
@@ -90,13 +94,22 @@ var itemList = {
 		if (safari) {
 			safari.self.height = listHeight + (itemCount == 0 ? 72 : 56);
 		}
-		// if (this.scrollTop) this.el.scrollTop = this.scrollTop;
 	},
 	updateScrollTop: function () {
-		// Only update the scroll top for the default view.
-		if (localStorage.lastScrollTop && this.listType === 'new or pinned') {
-			this.lastScrollTop = localStorage.lastScrollTop;
-			this.el.scrollTop = this.lastScrollTop;
+		if (this.listType === 'new or pinned') {
+			var lastSelectedItemId = localStorage.lastSelectedItemId;
+			var lastSelectedLi = lastSelectedItemId && document.getElementById(lastSelectedItemId);
+			if (localStorage.lastScrollPosition) {
+				this.lastScrollPosition = localStorage.lastScrollPosition;
+				if (lastSelectedLi) {
+					this.el.scrollTop = lastSelectedLi.offsetTop - this.lastScrollPosition;
+				} else {
+					this.el.scrollTop = localStorage.lastScrollTop;
+				}
+			}
+			if (lastSelectedLi) {
+				this.select(lastSelectedLi);
+			}
 		}
 	},
 	updateList: function (items, listType, isInitial, selectedIndex) {
@@ -133,7 +146,7 @@ var itemList = {
 			selectedIndex = 0;
 		if (selectedIndex >= this.el.children.length)
 			selectedIndex = this.el.children.length - 1;
-		this.select(null, selectedIndex);
+		this.select(null, selectedIndex, true);
 		if (listType == 'new or pinned') {
 			var unreadLength = items.filter(isUnread).length;
 			if (items.length > 0) {
@@ -258,17 +271,17 @@ function initialize() {
 		}
 	};
 	
-	document.addEventListener('scroll', function() {
-		if (itemList.el.scrollTop != itemList.lastScrollTop)
+	window.setInterval(function () {
+		var selectedLiScrollPosition = itemList.selectedLi.offsetTop - itemList.el.scrollTop;
+		if (selectedLiScrollPosition != itemList.lastScrollPosition) {
 			itemList.showFavicons();
-		itemList.lastScrollTop = itemList.el.scrollTop;
-
-		// A local variable won't survive after the popup closes, so save in
-		// localStorage as well, but only when in the default view.
-		if (itemList.listType === 'new or pinned') {
-			localStorage.lastScrollTop = itemList.lastScrollTop;
+			if (itemList.listType === 'new or pinned') {
+				itemList.lastScrollPosition = selectedLiScrollPosition;
+				localStorage.lastScrollPosition = itemList.lastScrollPosition;
+				localStorage.lastScrollTop = itemList.el.scrollTop;
+			}
 		}
-	}, /* useCapture */ true);
+	}, 250);
 	
 	initMainBox();
 	updateItems(JSON.parse(localStorage.cacheTime));

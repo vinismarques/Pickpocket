@@ -1,7 +1,8 @@
 var itemList = {
 	selectedLi: null,
 	itemHeight: 0,
-	lastScrollTop: 0,
+	lastScrollPosition: 0,
+	lastSelectedItemId: null,
 	clear: function () {
 		this.el.innerHTML = '';
 		this.el.style.height = 'auto';
@@ -27,7 +28,7 @@ var itemList = {
 	getSelectedIndex: function () {
 		return [].slice.call(this.el.children).indexOf(this.selectedLi);
 	},
-	select: function (li, index) {
+	select: function (li, index, noSave) {
 		if (this.urlRevealTimer) {
 			clearTimeout(this.urlRevealTimer);
 			delete this.urlRevealTimer;
@@ -45,6 +46,9 @@ var itemList = {
 				// itemList.selectedLi.querySelector('.blurb').innerHTML = getItemFromId(itemList.selectedLi.id).url;
 				delete itemList.urlRevealTimer;
 			}, 1000);
+			if (this.listType === 'new or pinned' && !noSave) {
+				localStorage.lastSelectedItemId = this.selectedLi.id;
+			}
 		}
 	},
 	showFavicon: function (li) {
@@ -90,7 +94,23 @@ var itemList = {
 		if (safari) {
 			safari.self.height = listHeight + (itemCount == 0 ? 72 : 56);
 		}
-		// if (this.scrollTop) this.el.scrollTop = this.scrollTop;
+	},
+	updateScrollTop: function () {
+		if (this.listType === 'new or pinned') {
+			var lastSelectedItemId = localStorage.lastSelectedItemId;
+			var lastSelectedLi = lastSelectedItemId && document.getElementById(lastSelectedItemId);
+			if (localStorage.lastScrollPosition) {
+				this.lastScrollPosition = localStorage.lastScrollPosition;
+				if (lastSelectedLi) {
+					this.el.scrollTop = lastSelectedLi.offsetTop - this.lastScrollPosition;
+				} else {
+					this.el.scrollTop = localStorage.lastScrollTop;
+				}
+			}
+			if (lastSelectedLi) {
+				this.select(lastSelectedLi);
+			}
+		}
 	},
 	updateList: function (items, listType, isInitial, selectedIndex) {
 		this.listType = listType = (listType || this.listType);
@@ -126,7 +146,7 @@ var itemList = {
 			selectedIndex = 0;
 		if (selectedIndex >= this.el.children.length)
 			selectedIndex = this.el.children.length - 1;
-		this.select(null, selectedIndex);
+		this.select(null, selectedIndex, true);
 		if (listType == 'new or pinned') {
 			var unreadLength = items.filter(isUnread).length;
 			if (items.length > 0) {
@@ -158,10 +178,12 @@ var itemList = {
 			setTimeout(function () {
 				itemList.itemHeight = itemList.el.firstElementChild.offsetHeight;
 				itemList.updateHeight(items.length);
+				itemList.updateScrollTop();
 				itemList.showFavicons();
 			}, 1);
 		} else {
 			this.updateHeight(items.length);
+			this.updateScrollTop();
 			this.showFavicons();
 		}
 	},
@@ -250,9 +272,15 @@ function initialize() {
 	};
 	
 	window.setInterval(function () {
-		if (itemList.el.scrollTop != itemList.lastScrollTop)
+		var selectedLiScrollPosition = itemList.selectedLi.offsetTop - itemList.el.scrollTop;
+		if (selectedLiScrollPosition != itemList.lastScrollPosition) {
 			itemList.showFavicons();
-		itemList.lastScrollTop = itemList.el.scrollTop;
+			if (itemList.listType === 'new or pinned') {
+				itemList.lastScrollPosition = selectedLiScrollPosition;
+				localStorage.lastScrollPosition = itemList.lastScrollPosition;
+				localStorage.lastScrollTop = itemList.el.scrollTop;
+			}
+		}
 	}, 250);
 	
 	initMainBox();

@@ -299,29 +299,7 @@ function findCachedFavicon(searchString) {
 	}
 }
 function finishUpdatingItems(callback) {
-	var sortOldestFirst = (localStorage.sortOldestFirst == 'yes');
-	var sortPinnedTo = 
-		localStorage.sortPinnedTo == 'top'    ?  1 :
-		localStorage.sortPinnedTo == 'bottom' ? -1 : 0;
-	var pinMethodIsTag = localStorage.pinMethod == 'tag';
-	itemCache.sort(function (a, b) {
-		if (sortPinnedTo != 0) {
-			if (pinMethodIsTag) {
-				a.pinned = a.tags.indexOf('pinned') > -1;
-				b.pinned = b.tags.indexOf('pinned') > -1;
-			} else {
-				a.pinned = a.faved == '1';
-				b.pinned = b.faved == '1';
-			}
-			if (b.pinned && !a.pinned) {
-				return sortPinnedTo;
-			}
-			if (a.pinned && !b.pinned) {
-				return -sortPinnedTo;
-			}
-		}
-		return sortOldestFirst ? (a.time - b.time) : (b.time - a.time);
-	});
+	sortItems(itemCache);
 	localStorage.itemCache = JSON.stringify(itemCache);
 	localStorage.cacheTime = new Date().getTime();
 	// console.log('Updated itemCache.length:', itemCache.length);
@@ -670,6 +648,36 @@ function scheduleCheckForNewItems() {
 		window.checkTimer = setInterval(runBackgroundUpdate, parseInt(localStorage.checkInterval) * 1000);
 	} else {
 		setBadge('');
+	}
+}
+function sortItems(items) {
+	var sortOldestFirst = (localStorage.sortOldestFirst == 'yes');
+	var sortPinnedTo = 
+		localStorage.sortPinnedTo == 'top'    ?  1 :
+		localStorage.sortPinnedTo == 'bottom' ? -1 : null;
+	var pinMethodIsTag = localStorage.pinMethod == 'tag';
+	items.sort(function (a, b) {
+		var sortValue = sortOldestFirst ? (a.time - b.time) : (b.time - a.time);
+		if (sortValue == 0)
+			sortValue = a.title - b.title;
+		return sortValue;
+	});
+	if (sortPinnedTo) {
+		items.sort(function (a, b) {
+			if (pinMethodIsTag) {
+				a.pinned = a.tags.indexOf('pinned') > -1;
+				b.pinned = b.tags.indexOf('pinned') > -1;
+			} else {
+				a.pinned = a.faved == '1';
+				b.pinned = b.faved == '1';
+			}
+			if (b.pinned && !a.pinned) {
+				return sortPinnedTo;
+			}
+			if (a.pinned && !b.pinned) {
+				return -sortPinnedTo;
+			}
+		});
 	}
 }
 function submitItem(data, callback, badCallback) {
