@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>11601.2.4</string>
+	<string>11601.4.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>Pickpocket</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.3.17</string>
+	<string>3.3.18</string>
 	<key>CFBundleVersion</key>
-	<string>101</string>
+	<string>102</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -180,7 +180,7 @@
 	<key>Description</key>
 	<string>Access your Pocket links in a popover or open all the unread ones in tabs.</string>
 	<key>DeveloperIdentifier</key>
-	<string>ZANVZTSER6</string>
+	<string>0000000000</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
