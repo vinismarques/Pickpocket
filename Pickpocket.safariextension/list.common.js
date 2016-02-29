@@ -121,11 +121,11 @@ var itemList = {
             this.selectedLi = null;
             messageSpan.innerHTML = 'No ' + listType + ' links.';
             if (inputField.value) {
-                this.el.innerHTML = '<li id="searchprompt">No matches.' 
+                this.el.innerHTML = '<li id="searchprompt">No matches.'
                     + ' Press Enter to google it or ' + (mac ? 'Option' : 'Alt') + '-Enter to add a new link.</li>';
             } else {
-                this.el.innerHTML = '<li id="searchprompt">No unread links.' 
-                    + ' Press Backspace to view your archive or ' + (mac ? 'Option' : 'Alt') 
+                this.el.innerHTML = '<li id="searchprompt">No unread links.'
+                    + ' Press Backspace to view your archive or ' + (mac ? 'Option' : 'Alt')
                     + '-Enter to add a new link.</li>';
             }
             this.updateHeight(0);
@@ -151,7 +151,7 @@ var itemList = {
             var unreadLength = items.filter(isUnread).length;
             if (items.length > 0) {
                 if (unreadLength > 0) {
-                    messageSpan.innerHTML = '<b>' + unreadLength + ' new link' 
+                    messageSpan.innerHTML = '<b>' + unreadLength + ' new link'
                         + (unreadLength > 1 ? 's' : '') + '</b>';
                 } else {
                     messageSpan.innerHTML = 'No new links';
@@ -166,7 +166,7 @@ var itemList = {
                     }
                 }
             }
-        } else 
+        } else
         if (listType == 'matching') {
             messageSpan.innerHTML = items.length + ' ' + listType + ' link' + (items.length > 1 ? 's' : '');
             snoLabel.style.display = 'inline';
@@ -186,12 +186,12 @@ var itemList = {
             this.updateScrollTop();
             this.showFavicons();
         }
-    },
+    }
 };
 
 function initialize() {
     itemList.el = document.querySelector('#itemlist');
-    
+
     itemTemplate    = document.getElementById('li_tmpl').innerHTML;
     allItems        = hc.itemCache;
     processing      = false;
@@ -202,17 +202,17 @@ function initialize() {
     openLimit       = parseInt(localStorage.openLimit);
     defaultListType = 'new or pinned';
     defaultFilter   = getDefaultFilter();
-    
+
     lin = /^Linux/.test(navigator.platform);
     mac = /^Mac/.test(navigator.platform);
     win = /^Win/.test(navigator.platform);
     xp  = /^Windows NT 5/.test(navigator.userAgent);
-    
+
     if (lin) document.body.className += ' lin';
     if (mac) document.body.className += ' mac';
     if (win) document.body.className += ' win';
     if (xp)  document.body.className += ' xp';
-    
+
     inputField       = document.querySelector('#inputfield');
     messageSpan      = document.querySelector('#messagespan');
     snoLabel         = document.querySelector('#snolabel');
@@ -222,7 +222,7 @@ function initialize() {
     addButton        = document.querySelector('#addbutton');
     menuButton       = document.querySelector('#menubutton');
     menu             = document.querySelector('#menu');
-    
+
     menu.show = function () {
         menuButton.className += ' active';
         menu.style.display = 'block';
@@ -231,16 +231,16 @@ function initialize() {
         menu.style.display = '';
         menuButton.className = menuButton.className.replace(' active', '');
     };
-    
+
     inputField.onkeydown     = handleInputKeyDown;
     inputField.onkeyup       = handleInputKeyUp;
     openAllButton.onclick    = openAllUnread;
     archiveAllButton.onclick = archiveAllUnread;
     addButton.onclick        = showAddForm;
     menu.onclick             = menu.hide;
-    
+
     document.querySelector('#settingsbutton').onclick = showOptionsForm;
-    
+
     snoCheckbox.onchange = function (e) {
         localStorage.searchNewOnly = e.currentTarget.checked;
         showMatchingItems();
@@ -270,7 +270,7 @@ function initialize() {
             goAway();
         }
     };
-    
+
     window.setInterval(function () {
         var selectedLiScrollPosition = itemList.selectedLi.offsetTop - itemList.el.scrollTop;
         if (selectedLiScrollPosition != itemList.lastScrollPosition) {
@@ -282,7 +282,7 @@ function initialize() {
             }
         }
     }, 250);
-    
+
     initMainBox();
     updateItems(JSON.parse(localStorage.cacheTime));
     _gaq = hc._gaq; _gaq.push(['_trackPageview', '/list.html']);
@@ -386,7 +386,7 @@ function handleInputKeyDown(e) {
                 setPref(regexResult[1], regexResult[2]);
                 e.target.value = '';
                 break;
-            }           
+            }
             if (modkeys == (mac ? 8 : 6)) {
                 openAllUnread();
                 break;
@@ -398,10 +398,10 @@ function handleInputKeyDown(e) {
             if (itemList.selectedLi) {
                 var id = itemList.selectedLi.id;
                 var item = getItemFromId(id);
-                openItem(item, 
-                    e.shiftKey, 
-                    e.altKey, 
-                    !(e.ctrlKey || e.metaKey) && isUnread(item)
+                openItem(item,
+                    (mac ? e.metaKey : e.ctrlKey),
+                    (e.altKey),
+                    (!e.shiftKey) && isUnread(item)
                 );
             }
             if (e.target.value) {
@@ -497,20 +497,16 @@ function handleInputKeyUp(e) {
 function handleItemClick(e) {
     e.stopPropagation();
     e.preventDefault();
-    if (e.shiftKey) {
-        window.getSelection().empty();
-        inputField.focus();
-    }
     var itemLI = e.currentTarget;
     var action = e.target.getAttribute('data-action');
     if (action) {
         performItemAction(action, itemLI);
     } else {
         var item = getItemFromId(itemLI.id);
-        openItem(item, 
-            e.shiftKey, 
-            e.altKey, 
-            !(e.ctrlKey || e.metaKey) && isUnread(item)
+        openItem(item,
+            (mac ? e.metaKey : e.ctrlKey),
+            (e.altKey),
+            (!e.shiftKey) && isUnread(item)
         );
     }
 }
