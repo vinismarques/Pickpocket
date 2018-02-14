@@ -46,7 +46,7 @@ var itemList = {
                 // itemList.selectedLi.querySelector('.blurb').innerHTML = getItemFromId(itemList.selectedLi.id).url;
                 delete itemList.urlRevealTimer;
             }, 1000);
-            if (this.listType === 'new or pinned' && !noSave) {
+            if (this.listType === 'new or pinned' && !noSave && localStorage) {
                 localStorage.lastSelectedItemId = this.selectedLi.id;
             }
         }
@@ -97,7 +97,7 @@ var itemList = {
     },
     updateScrollTop: function () {
         if (this.listType === 'new or pinned') {
-            var lastSelectedItemId = localStorage.lastSelectedItemId;
+            var lastSelectedItemId = localStorage && localStorage.lastSelectedItemId;
             var lastSelectedLi = lastSelectedItemId && document.getElementById(lastSelectedItemId);
             if (localStorage.lastScrollPosition) {
                 this.lastScrollPosition = localStorage.lastScrollPosition;
