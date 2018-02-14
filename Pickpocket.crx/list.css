@@ -8,6 +8,9 @@ body.chrome {
 	width: 580px;
 	background-color: #fbfbfb;
 }
+body.chrome.initial {
+	height: 600px;
+}
 body.safari {
 }
 

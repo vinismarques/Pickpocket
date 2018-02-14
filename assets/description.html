@@ -1,64 +1,67 @@
 <p class="downlink">
     <a href="https://github.com/canisbos/Pickpocket/blob/master/dist/Pickpocket.safariextz?raw=true">Download Pickpocket</a></p>
+
 <p>
-    <em>Requires Safari 5.1 or higher. Not a Safari user? Get <a 
-    href="https://chrome.google.com/webstore/detail/pickpocket/ohfomjjafcdfkdodojjgkhlepcofaail">
+    <em>Requires Safari 5.1 or higher. Not a Safari user? Get <a href="https://chrome.google.com/webstore/detail/pickpocket/ohfomjjafcdfkdodojjgkhlepcofaail">
     Pickpocket for Chrome</a>.</em></p>
 
 <p>
-    Pickpocket lets you access, search, and open links from your <a href="http://getpocket.com/"
-    target= "_blank">Pocket</a>, <a href="http://delicious.com/" target="_blank">Delicious</a>, 
-    <a href="http://kippt.com/" target="_blank">Kippt</a>, or <a href="http://www.google.com/bookmarks" 
-    target="_blank">Google Bookmarks</a> account without needing to visit the site.</p>
+    Pickpocket lets you access, search, and open links from your <a href="http://getpocket.com/" target="_blank">Pocket</a>, <a href="http://delicious.com/" target="_blank">Delicious</a>,
+    <a href="http://kippt.com/" target="_blank">Kippt</a>, or <a href="http://www.google.com/bookmarks" target="_blank">Google Bookmarks</a> account without needing to visit the site.</p>
+
 <p>
-    The extension has two basic modes of operation; I'll call them <em>list mode</em> and <em>tabs
+    The extension has two basic modes of operation; I’ll call them <em>list mode</em> and <em>tabs
     mode</em>.</p>
+
 <p>
-    In <strong>list mode</strong>&mdash;the default mode&mdash;clicking Pickpocket's toolbar button
+    In <strong>list mode</strong>—the default mode—clicking Pickpocket’s toolbar button
     will open a popover containing a list of Pocket links. Initially, the popover will list all of
     your unread (or, more accurately, <em>unarchived</em>) links.</p>
 
 <div class="screenshot">
-    <img alt="screenshot" src="http://dl.dropbox.com/u/23990/Canisbos/Pickpocket/screen1.png"><br>
-    <span class="caption">The list-mode popover showing unread links</span>
+    <img alt="screenshot" src="https://github.com/canisbos/Pickpocket/blob/master/assets/screenshot0.png?raw=true"/><br/><span class="caption">The list-mode popover showing unread links</span>
 </div>
+
 <p>
     If you type something in the search bar at the top of the popover, Pickpocket will list all the
-    links&mdash;read and unread&mdash;that contain what you typed in their titles, tags, or URLs.
+    links—read and unread—that contain what you typed in their titles, tags, or URLs.
     The search feature works just like that of <a href="/moofmarks">Moofmarks</a>, so please read
     that page for more details about search.</p>
+
 <p>
     In <strong><a href="#tabsmode">tabs mode</a></strong>, when you click the toolbar button,
     Pickpocket will simply open all of your unread links in new tabs. (If you have more than 10
     unread links, the extension will ask you to confirm opening them.)</p>
+
 <p>
-    In either mode, when you open (or close, depending on the appropriate setting) an unread link's
-    tab, Pickpocket will ask you whether you want to archive the link. If you say yes, it'll tell
+    In either mode, when you open (or close, depending on the appropriate setting) an unread link’s
+    tab, Pickpocket will ask you whether you want to archive the link. If you say yes, it’ll tell
     Pocket to mark the link as read, which moves the link from your queue to your archive.
     Optionally, you can set Pickpocket to always archive (or not archive) closed links without
     asking. (See <a href="#archival">Controlling link archival</a>, below.)</p>
 
 <div class="screenshot">
-    <img alt="screenshot" src="http://dl.dropbox.com/u/23990/Canisbos/Pickpocket/screen2.png"><br>
-    <span class="caption">The link archive-on-close confirmation dialog</span>
+    <img alt="screenshot" src="https://github.com/canisbos/Pickpocket/blob/master/assets/screenshot1.png?raw=true"/><br/><span class="caption">The link archive-on-close confirmation dialog</span>
 </div>
+
 <p>
-    Finally, Pickpocket also provides various ways to add a link to your Pocket unread list. (See 
-    <a href= "#adding">Adding links to Pocket</a>, below.)</p>
+    Finally, Pickpocket also provides various ways to add a link to your Pocket unread list. (See
+    <a href="#adding">Adding links to Pocket</a>, below.)</p>
 
 <h4 id="howtouse">How to use</h4>
+
 <p>
-    When you install Pickpocket, the extension will prompt you to authorize it to access your 
-    Pocket account. This is a one-time process unless you need to change the Pocket account 
+    When you install Pickpocket, the extension will prompt you to authorize it to access your
+    Pocket account. This is a one-time process unless you need to change the Pocket account
     Pickpocket uses.</p>
 
 <h5 id="listmode">Using list mode</h5>
-<ul class="spaced" style="padding-left: 20px;">
-    <li>
+
+<ul class="spaced" style="padding-left: 20px;"><li>
         To open a link in list mode, either click it, or use the up/down arrow keys to select it and
         then press Enter. The link will open in a new tab, unless the current tab is empty.</li>
     <li>
-        If you hold down the Shift key while clicking a link or pressing Enter, Pickpocket will open 
+        If you hold down the Shift key while clicking a link or pressing Enter, Pickpocket will open
         the link in a background tab and keep the popover open.</li>
     <li>
         To search your links (including archived ones), type something in the search bar at the top of
@@ -66,7 +69,7 @@
     <li>
         To list <em>all</em> of your downloaded links (including archived ones), type Delete (Windows:
         backspace) in the search bar while the bar is empty. (Note, however, that depending on the
-        download limit that has been set in the extension's options, this may not include every link in
+        download limit that has been set in the extension’s options, this may not include every link in
         your Pocket account.)</li>
     <li>
         To open all your <em>unread</em> links at once, press Command-Enter (Windows: Ctrl+Enter).</li>
@@ -74,20 +77,19 @@
         To archive a link without opening it, either click the green checkmark button to the right of
         its URL, or press Command-Delete (Windows: Ctrl+Backspace) while the link is selected.</li>
     <li>
-        To delete a link, either click the red "x" button to the right of its URL, or press Command-
+        To delete a link, either click the red “x” button to the right of its URL, or press Command-
         Shift-Delete (Windows: Ctrl+Shift+Backspace) while the link is selected.</li>
     <li>
         If you want a link to stay in the unread list after it has been archived, you can pin it. To do
-        so, click the pin button to the right of its URL. Depending on the state of the <a
-        href="#settings">setting</a> "Keep in new item list", this icon may be a star instead of a 
+        so, click the pin button to the right of its URL. Depending on the state of the <a href="#settings">setting</a> “Keep in new item list”, this icon may be a star instead of a
         pin.</li>
-</ul>
+</ul><h5 id="tabsmode">Using tabs mode</h5>
 
-<h5 id="tabsmode">Using tabs mode</h5>
 <p>
-    To switch to tabs mode, open Pickpocket's settings (click the gear icon in the list mode
-    popover) and set the option group labeled "When I click the toolbar button" to <em>Open unread
+    To switch to tabs mode, open Pickpocket’s settings (click the gear icon in the list mode
+    popover) and set the option group labeled “When I click the toolbar button” to <em>Open unread
     links in tabs</em>.</p>
+
 <p>
     Click the toolbar button to open your unread Pocket links in tabs. If you have more than 10
     unread links, Pickpocket will prompt for confirmation before opening them. By default,
@@ -95,113 +97,105 @@
     open them in a new window instead.</p>
 
 <h5 id="menu">Using the action menu</h5>
+
 <p>
     The action menu (available in the Mac version only) lets you choose the operation mode each time
     you click the toolbar button, instead of always opening the popover or always opening unread
-    links in tabs. To enable the action menu, go into Pickpocket's settings (click the gear icon in
-    the list mode popover) and set the option group labeled "When I click the toolbar button" to
+    links in tabs. To enable the action menu, go into Pickpocket’s settings (click the gear icon in
+    the list mode popover) and set the option group labeled “When I click the toolbar button” to
     <em>Show a menu of possible actions</em>.</p>
 
 <h5 id="archival">Controlling link archival</h5>
+
 <p>
     By default, when you open an unread link (in either operating mode) and then close its tab or
     navigate to a different page in the same tab, Pickpocket will ask you whether to archive the
     link. You can change this behavior in the settings popover (click the gear icon in the list mode
     popover).</p>
+
 <p>
-    If you'd rather Pickpocket just archived the link without asking, disable the option "Prompt for
-    confirmation". Note: This setting has no effect when you archive links directly in the popover.
+    If you’d rather Pickpocket just archived the link without asking, disable the option “Prompt for
+    confirmation”. Note: This setting has no effect when you archive links directly in the popover.
     Such links are always archived without prompting.</p>
+
 <p>
     Instead of archiving each link when you close its tab, you can have Pickpocket archive it when
-    you <em>activate</em> its tab. If you're opening just one link, it will be archived immediately.
-    If you're opening several at the same time, each will be archived when you activate its tab. If
+    you <em>activate</em> its tab. If you’re opening just one link, it will be archived immediately.
+    If you’re opening several at the same time, each will be archived when you activate its tab. If
     you choose this option, links will be archived without prompting.</p>
+
 <p>
-    You can also disable automatic archiving altogether. Just set the "Archive each opened link"
-    setting to "Never".</p>
+    You can also disable automatic archiving altogether. Just set the “Archive each opened link”
+    setting to “Never”.</p>
+
 <p>
     Finally, you can manually archive a link after opening it with Pickpocket, without having to
     reopen the popover. Just press Shift-Option-P while viewing the page belonging to the link.
     (This will only work in the original tab opened by Pickpocket for that link.)</p>
 
 <h5 id="adding">Adding links to Pocket</h5>
+
 <p>
     There are few ways to add a link to your Pocket account.</p>
+
 <p>
-    From the list mode popover, clicking the <b style= "font-size: 20px; line-height: 0; position:
+    From the list mode popover, clicking the <b style="font-size: 20px; line-height: 0; position:
     relative; top: 2px;">+</b> button opens the Add Link form popover. The form will be pre-
-    populated with the current web page's title and URL. You can edit these details and also add
+    populated with the current web page’s title and URL. You can edit these details and also add
     tags. Then, click Submit to upload the link to Pocket.</p>
+
 <p>
     There is a context menu item to quickly add the current web page to Pocket. Right-click anywhere
-    on the page (but not on a link or an image) and select "Add Page to Pocket" in the context menu.
+    on the page (but not on a link or an image) and select “Add Page to Pocket” in the context menu.
     A link for the page will be immediately added to your account, and a confirmation popover will
     appear. This popover will go away by itself in three seconds, but if you click the OK button or
     press Enter or space before then, you can edit the just-added link in the Add Link popover.</p>
+
 <p>
     Lastly, Pickpocket has a second toolbar button for quickly adding links, but this button is
-    hidden by default. To enable it, right-click your toolbar, click "Customize Toolbar…", and then
+    hidden by default. To enable it, right-click your toolbar, click “Customize Toolbar…”, and then
     drag the button labelled “Pickpocket Put” into your toolbar. Clicking this button has the same
-    effect as using the "Add Page to Pocket" context menu item, described above. You can also long-
+    effect as using the “Add Page to Pocket” context menu item, described above. You can also long-
     click this button to go directly to the Add Link popover.</p>
 
 <h5 id="hotkeys">Keyboard shortcuts (for use while viewing a web page)</h5>
-<table class="mytable">
-    <tr><th>Shortcut</th><th>Description</th></tr>
-    <tr><td>Command-Shift-P</td><td>Execute toolbar button action</td></tr>
-    <tr><td>Command-Control-P</td><td>Add current page to Pocket</td></tr>
-    <tr><td>Shift-Option-P</td><td>Archive current page (if opened by Pickpocket)</td></tr>
-</table>
 
-<h4 id="settings">Settings</h4>
+<table class="mytable"><tr><th>Shortcut</th><th>Description</th></tr><tr><td>Command-Shift-P</td><td>Execute toolbar button action</td></tr><tr><td>Command-Control-P</td><td>Add current page to Pocket</td></tr><tr><td>Shift-Option-P</td><td>Archive current page (if opened by Pickpocket)</td></tr></table><h4 id="settings">Settings</h4>
+
 <p>
     To open the settings popover, click the gear button at the top-right corner of the list popover,
-    or click the checkbox provided in Safari's extension manager.</p>
-<dl>
-    <dt>When I click the toolbar button</dt>
+    or click the checkbox provided in Safari’s extension manager.</p>
+
+<dl><dt>When I click the toolbar button</dt>
     <dd>
         Determines what to do when you click the toolbar button.</dd>
-</dl>
-<dl>
-    <dt>Archive each opened link</dt>
+</dl><dl><dt>Archive each opened link</dt>
     <dd>
         Determines when links are auto-archived, if at all.</dd>
-</dl>
-<dl>
-    <dt>Keep in new item list</dt>
+</dl><dl><dt>Keep in new item list</dt>
     <dd>
-        Determines what happens when you "pin" a link to the unread list, and how the extension
-        determines whick links are pinned. "Favorites" corresponds to links marked as Favorites in
+        Determines what happens when you “pin” a link to the unread list, and how the extension
+        determines whick links are pinned. “Favorites” corresponds to links marked as Favorites in
         Pocket.</dd>
-</dl>
-<dl>
-    <dt>Check for new links every [n] minutes</dt>
+</dl><dl><dt>Check for new links every [n] minutes</dt>
     <dd>
         Pickpocket can check your Pocket account at regular intervals for unread links. If there
         are any, the number of unread links will appear as a badge on the toolbar icon. (Note: If
         the link check interval is set to 0, the toolbar button will not show a badge even if
         there are unread links.)</dd>
-</dl>
-<dl>
-    <dt>Download up to [n] links</dt>
+</dl><dl><dt>Download up to [n] links</dt>
     <dd>
-        By default, Pickpocket will only download the 1,000 most recent links from your Pocket 
+        By default, Pickpocket will only download the 1,000 most recent links from your Pocket
         account. You can raise this limit to as high as 10,000 at the risk of unacceptably slow
         search performance in the popover.</dd>
-</dl>
-<dl>
-    <dt>Reauthorize Pickpocket</dt>
+</dl><dl><dt>Reauthorize Pickpocket</dt>
     <dd>
         If you want to change the Pocket account that Pickpocket uses, click this to restart the
         authorization process. Note that before using this link, you should be either logged out of
         Pocket, or logged in to the account you want Pickpocket to use.</dd>
-</dl>
-
-<p class="downlink">
+</dl><p class="downlink">
     <a href="https://github.com/canisbos/Pickpocket/blob/master/dist/Pickpocket.safariextz?raw=true">Download Pickpocket</a></p>
+
 <p style="text-align: center;">
-    <span style="font-size: 11px;">2014 Canisbos Computing</span><br>
-    <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img style="border-width: 0;" src=
-    "http://creativecommons.org/images/public/somerights20.png" alt="Creative Commons License"></a>
+    <span style="font-size: 11px;">2014 Canisbos Computing</span><br/><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img style="border-width: 0;" src="http://creativecommons.org/images/public/somerights20.png" alt="Creative Commons License"/></a>
 </p>
