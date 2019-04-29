@@ -43,7 +43,7 @@
 		"http://*/*", "https://*/*"
 	],
 	"web_accessible_resources" : [ "report.html", "add.html", "oauth.html" ],
-	"content_security_policy"  : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+	"content_security_policy"  : "script-src 'self'; object-src 'self'",
 
 	"manifest_version": 2
 }

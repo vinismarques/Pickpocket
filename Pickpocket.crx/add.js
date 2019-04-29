@@ -16,7 +16,6 @@ function initialize() {
 		hc = chrome.extension.getBackgroundPage();
 		console = hc.console;
 		tagCollection = hc.getAllTags();
-		hc._gaq.push(['_trackPageview', '/add.html']);
 	}
 	
 	amBox = document.querySelector('#am_div');

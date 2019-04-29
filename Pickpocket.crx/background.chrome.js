@@ -36,7 +36,6 @@ function addOrArchivePage(tab) {
             updateUIElements(tab.id);
         });
     }
-    _gaq.push(['_trackEvent', 'User Actions', 'Add or Archive Item By Hotkey']);
 }
 function applyDefaultAction() {
     switch (localStorage.defaultAction) {
@@ -132,7 +131,6 @@ function handleAddCommand(info, tab) {
             });
         }
     }
-    _gaq.push(['_trackEvent', 'User Actions', 'Add Item By Context Menu']);
 }
 function handleArchiveCommand(info, tab) {
     var item = getItemByUrl(tab.url);
@@ -149,7 +147,6 @@ function handleArchiveCommand(info, tab) {
         });
     };
     markItemRead(item, onSuccess);
-    _gaq.push(['_trackEvent', 'User Actions', 'Archive Item By Context Menu']);
 }
 function handleCommand(command) {
     if (command == 'add-current-page') {
@@ -173,7 +170,6 @@ function handleRemoveCommand(info, tab) {
         });
     };
     deleteItem(item, onSuccess, handleXhrErrorWithAlert);
-    _gaq.push(['_trackEvent', 'User Actions', 'Remove Item By Context Menu']);
 }
 function handleMessage(message, sender, callback) {
     // console.log('Received message "' + message.name + '" from ', sender);
@@ -552,18 +548,5 @@ chrome.commands.onCommand.addListener(handleCommand);
 
 setButtonIcon(defaultIcon);
 cb.setBadgeBackgroundColor({color:'#ff4c62'});
-
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-17748243-3']);
-_gaq.push(['_trackPageview', '/background.html']);
-(function () {
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
-    console.log('Google Analytics script loaded.');
-})();
 
 initialize();

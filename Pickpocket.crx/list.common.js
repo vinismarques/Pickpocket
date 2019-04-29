@@ -290,7 +290,6 @@ function initialize() {
 
   initMainBox();
   updateItems(JSON.parse(localStorage.cacheTime));
-  _gaq = hc._gaq; _gaq.push(['_trackPageview', '/list.html']);
 }
 function archiveAllUnread(arg) {
   var filterFunc = (localStorage.newExcludesTagged == 'yes') ? isUnreadAndUntagged : isUnread;
@@ -298,7 +297,6 @@ function archiveAllUnread(arg) {
   if (arg == 'confirmed' || unreadItems.length < 10) {
     messageSpan.innerHTML = ''; // '<i class="waiting"></i>';
     hc.archiveItems(unreadItems, showMatchingItems);
-    _gaq.push(['_trackEvent', 'User Actions', 'Archive All New From Popup']);
   } else {
     confirmAction('Really archive ' + unreadItems.length + ' links?', archiveAllUnread);
   }
@@ -576,7 +574,6 @@ function openAllUnread(arg) {
   }
   if (arg == 'confirmed' || openLimit || unreadItems.length < 10) {
     hc.openItems(unreadItems);
-    _gaq.push(['_trackEvent', 'User Actions', 'Open All New From Popup']);
     goAway();
   } else {
     confirmAction('Really open ' + unreadItems.length + ' links?', openAllUnread);
@@ -584,7 +581,6 @@ function openAllUnread(arg) {
 }
 function openItem(item, background, altView, archiveOnTrigger) {
   hc.openItem(item, background, altView, archiveOnTrigger);
-  _gaq.push(['_trackEvent', 'User Actions', 'Open Item From Popup']);
   background || goAway();
 }
 function performItemAction(action, itemLI) {
@@ -598,7 +594,6 @@ function performItemAction(action, itemLI) {
           itemList.togglePinnedUI(itemLI);
         }
       });
-      _gaq.push(['_trackEvent', 'User Actions', 'Pin Item By Click']);
     break;
     case 'archive':
       toggleArchived(item, function () {
@@ -608,11 +603,9 @@ function performItemAction(action, itemLI) {
           itemList.toggleArchivedUI(itemLI);
         }
       });
-      _gaq.push(['_trackEvent', 'User Actions', 'Archive Item By Click']);
     break;
     case 'delete':
       deleteItem(item);
-      _gaq.push(['_trackEvent', 'User Actions', 'Delete Item By Click']);
     break;
   }
   inputField.focus();
